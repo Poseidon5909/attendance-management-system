@@ -1,8 +1,7 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from config import Config
+from app.extensions import db
 
-db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
@@ -11,9 +10,11 @@ def create_app():
     db.init_app(app)
 
     from app.routes import main
-    from app.auth import auth   # <-- this imports auth/__init__.py
+    from app.auth import auth
+    from app.students import students
 
     app.register_blueprint(main)
     app.register_blueprint(auth)
+    app.register_blueprint(students, url_prefix="/students")
 
     return app
