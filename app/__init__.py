@@ -11,6 +11,9 @@ def create_app():
     db.init_app(app)
 
     from app.routes import main
+    from app.auth import auth   # <-- this imports auth/__init__.py
+
     app.register_blueprint(main)
+    app.register_blueprint(auth)
 
     return app

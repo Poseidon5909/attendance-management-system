@@ -1,7 +1,16 @@
-from flask import Blueprint
+from flask import Blueprint, render_template, redirect, url_for, session
 
 main = Blueprint("main", __name__)
 
+
 @main.route("/")
-def home():
-    return "Attendance Management System is running 🚀"
+def index():
+    return redirect(url_for("auth.login"))
+
+
+@main.route("/dashboard")
+def dashboard():
+    if "user_id" not in session:
+        return redirect(url_for("auth.login"))
+
+    return render_template("dashboard.html")
