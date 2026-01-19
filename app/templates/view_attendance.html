@@ -1,0 +1,21 @@
+<h3>View Attendance</h3>
+
+<form method="GET">
+  <input type="date" name="date" class="form-control mb-3" required>
+  <button class="btn btn-secondary mb-3">View</button>
+</form>
+
+{% if records %}
+<table class="table table-bordered">
+  <tr>
+    <th>Student</th>
+    <th>Status</th>
+  </tr>
+  {% for r in records %}
+  <tr>
+    <td>{{ r.student.name }}</td>
+    <td>{{ r.status }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}

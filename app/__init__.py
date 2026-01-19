@@ -12,9 +12,11 @@ def create_app():
     from app.routes import main
     from app.auth import auth
     from app.students import students
+    from app.attendance import attendance
 
     app.register_blueprint(main)
     app.register_blueprint(auth)
     app.register_blueprint(students, url_prefix="/students")
+    app.register_blueprint(attendance, url_prefix="/attendance")
 
     return app
