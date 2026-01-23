@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request, flash, session
 from app.students import students
 from app.models import Student
-from app import db
+from app.extensions import db
 
 
 def login_required():

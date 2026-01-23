@@ -28,7 +28,7 @@ def mark_attendance():
     if not login_required():
         return redirect(url_for("auth.login"))
 
-    students = Student.query.all()
+    students = Student.query.order_by(Student.roll_number).all()
 
     if request.method == "POST":
         selected_date = request.form.get("date")

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Add Student{% endblock %}
+{% block content %}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+        <h3 class="mb-4">Add New Student</h3>
+
+        <form method="POST" class="card p-4 shadow-sm">
+            <div class="mb-3">
+                <label for="roll_number" class="form-label">Roll Number</label>
+                <input type="text" id="roll_number" name="roll_number" placeholder="e.g., CS001" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Student Name</label>
+                <input type="text" id="name" name="name" placeholder="Full name" class="form-control" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="email" class="form-label">Email (Optional)</label>
+                <input type="email" id="email" name="email" placeholder="student@example.com" class="form-control">
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-success">Add Student</button>
+                <a href="{{ url_for('students.list_students') }}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

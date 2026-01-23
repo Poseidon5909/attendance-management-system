@@ -1,21 +1,56 @@
-<h3>View Attendance</h3>
+{% extends "base.html" %}
+{% block title %}View Attendance{% endblock %}
+{% block content %}
 
-<form method="GET">
-  <input type="date" name="date" class="form-control mb-3" required>
-  <button class="btn btn-secondary mb-3">View</button>
-</form>
+<h2 class="mb-4">View Attendance</h2>
 
-{% if records %}
-<table class="table table-bordered">
-  <tr>
-    <th>Student</th>
-    <th>Status</th>
-  </tr>
-  {% for r in records %}
-  <tr>
-    <td>{{ r.student.name }}</td>
-    <td>{{ r.status }}</td>
-  </tr>
-  {% endfor %}
-</table>
+<div class="card shadow-sm p-4 mb-4">
+    <form method="GET" class="row g-3 align-items-end">
+        <div class="col-md-4">
+            <label for="date" class="form-label">Select Date</label>
+            <input type="date" id="date" name="date" class="form-control" value="{{ selected_date or '' }}" required>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">View</button>
+        </div>
+    </form>
+</div>
+
+{% if selected_date and records %}
+<div class="table-responsive card shadow-sm">
+    <table class="table table-hover mb-0">
+        <thead class="table-dark">
+            <tr>
+                <th>Student Name</th>
+                <th>Roll Number</th>
+                <th class="text-center">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in records %}
+            <tr>
+                <td>{{ r.student.name }}</td>
+                <td>{{ r.student.roll_number }}</td>
+                <td class="text-center">
+                    {% if r.status == 'Present' %}
+                        <span class="badge bg-success">Present</span>
+                    {% else %}
+                        <span class="badge bg-danger">Absent</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% elif selected_date %}
+<div class="alert alert-info" role="alert">
+    <p class="mb-0">No attendance records found for {{ selected_date }}.</p>
+</div>
+{% else %}
+<div class="alert alert-info" role="alert">
+    <p class="mb-0">Select a date to view attendance records.</p>
+</div>
 {% endif %}
+
+{% endblock %}

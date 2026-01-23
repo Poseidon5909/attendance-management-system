@@ -1,32 +1,71 @@
-<h3>Mark Attendance</h3>
+{% extends "base.html" %}
+{% block title %}Mark Attendance{% endblock %}
 
-<form method="POST">
-  <input type="date" name="date" class="form-control mb-3" required>
+{% block content %}
 
-  {% if students %}
-    <table class="table table-bordered">
-      <tr>
-        <th>Roll</th>
-        <th>Name</th>
-        <th>Status</th>
-      </tr>
+<h3 class="mb-4">Mark Attendance</h3>
 
-      {% for s in students %}
-      <tr>
-        <td>{{ s.roll_number }}</td>
-        <td>{{ s.name }}</td>
-        <td>
-          <select name="status_{{ s.id }}" class="form-select">
-            <option value="Present">Present</option>
-            <option value="Absent">Absent</option>
-          </select>
-        </td>
-      </tr>
-      {% endfor %}
-    </table>
+<div class="card shadow-sm">
+  <div class="card-body">
 
-    <button class="btn btn-primary">Submit Attendance</button>
-  {% else %}
-    <p>No students found.</p>
-  {% endif %}
-</form>
+    <!-- Date Picker -->
+    <form method="POST" action="{{ url_for('attendance.mark_attendance') }}">
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <label class="form-label fw-semibold">Select Date</label>
+          <input
+            type="date"
+            name="date"
+            class="form-control"
+            required
+          >
+        </div>
+      </div>
+
+      <!-- Attendance Table -->
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle text-center">
+          <thead class="table-dark">
+            <tr>
+              <th>Roll No</th>
+              <th>Name</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in students %}
+            <tr>
+              <td class="fw-semibold">{{ s.roll_number }}</td>
+              <td>{{ s.name }}</td>
+              <td>
+                <select
+                  name="status_{{ s.id }}"
+                  class="form-select w-75 mx-auto"
+                >
+                  <option value="Present" selected>Present</option>
+                  <option value="Absent">Absent</option>
+                </select>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="mt-4 d-flex gap-2">
+        <button type="submit" class="btn btn-success px-4">
+          Submit Attendance
+        </button>
+
+        <a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary">
+          Cancel
+        </a>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

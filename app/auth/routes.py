@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request, session, flash
 from app.auth import auth
 from app.models import User
-from app import db
+from app.extensions import db
 
 
 @auth.route("/login", methods=["GET", "POST"])
